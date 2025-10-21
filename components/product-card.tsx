@@ -1,18 +1,24 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Star } from "lucide-react"
-import { Card, CardContent, CardFooter } from "./ui/card"
-import { Button } from "./ui/button"
+import { Star } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardFooter } from "./ui/card";
 
 interface ProductCardProps {
-  id: number
-  title: string
-  price: number
-  thumbnail: string
-  rating: number
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
+  rating: number;
 }
 
-export function ProductCard({ id, title, price, thumbnail, rating }: ProductCardProps) {
+export function ProductCard({
+  id,
+  title,
+  price,
+  thumbnail,
+  rating,
+}: ProductCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <Link href={`/products/${id}`}>
@@ -28,7 +34,9 @@ export function ProductCard({ id, title, price, thumbnail, rating }: ProductCard
       </Link>
       <CardContent className="p-4">
         <Link href={`/products/${id}`}>
-          <h3 className="font-semibold text-base line-clamp-2 mb-2 hover:text-accent transition-colors">{title}</h3>
+          <h3 className="font-semibold text-base line-clamp-2 mb-2 hover:text-accent transition-colors">
+            {title}
+          </h3>
         </Link>
         <div className="flex items-center gap-1 mb-2">
           <Star className="h-4 w-4 fill-accent text-accent" />
@@ -42,5 +50,5 @@ export function ProductCard({ id, title, price, thumbnail, rating }: ProductCard
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }

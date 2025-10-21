@@ -1,43 +1,44 @@
-import Image from "next/image"
-import { notFound } from "next/navigation"
-import { Star, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
-import { AddToCartButton } from "@/components/add-to-cart-button"
+import { ArrowLeft, Star } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { AddToCartButton } from "@/components/add-to-cart-button";
+import { Badge } from "@/components/ui/badge";
 
 interface Product {
-  id: number
-  title: string
-  description: string
-  price: number
-  discountPercentage: number
-  rating: number
-  stock: number
-  brand: string
-  category: string
-  thumbnail: string
-  images: string[]
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
 }
 
 async function getProduct(id: string): Promise<Product> {
   const res = await fetch(`https://dummyjson.com/products/${id}`, {
     cache: "no-store",
-  })
+  });
 
   if (!res.ok) {
-    notFound()
+    notFound();
   }
 
-  return res.json()
+  return res.json();
 }
 
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: { id: string };
 }) {
-  const product = await getProduct(params.id)
-  const discountedPrice = product.price * (1 - product.discountPercentage / 100)
+  const product = await getProduct(params.id);
+  const discountedPrice =
+    product.price * (1 - product.discountPercentage / 100);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -65,7 +66,10 @@ export default async function ProductDetailPage({
           {product.images.length > 1 && (
             <div className="grid grid-cols-4 gap-4">
               {product.images.slice(1, 5).map((image, index) => (
-                <div key={index} className="relative aspect-square overflow-hidden rounded-md bg-muted">
+                <div
+                  key={index}
+                  className="relative aspect-square overflow-hidden rounded-md bg-muted"
+                >
                   <Image
                     src={image || "/placeholder.svg"}
                     alt={`${product.title} - Image ${index + 2}`}
@@ -84,27 +88,41 @@ export default async function ProductDetailPage({
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="secondary">{product.category}</Badge>
-              {product.brand && <Badge variant="outline">{product.brand}</Badge>}
+              {product.brand && (
+                <Badge variant="outline">{product.brand}</Badge>
+              )}
             </div>
-            <h1 className="text-3xl font-bold mb-4 text-balance">{product.title}</h1>
+            <h1 className="text-3xl font-bold mb-4 text-balance">
+              {product.title}
+            </h1>
 
             <div className="flex items-center gap-2 mb-4">
               <div className="flex items-center gap-1">
                 <Star className="h-5 w-5 fill-accent text-accent" />
-                <span className="font-semibold">{product.rating.toFixed(1)}</span>
+                <span className="font-semibold">
+                  {product.rating.toFixed(1)}
+                </span>
               </div>
               <span className="text-muted-foreground">•</span>
-              <span className="text-sm text-muted-foreground">{product.stock} in stock</span>
+              <span className="text-sm text-muted-foreground">
+                {product.stock} in stock
+              </span>
             </div>
           </div>
 
           <div className="space-y-2">
             <div className="flex items-baseline gap-3">
-              <span className="text-4xl font-bold">${discountedPrice.toFixed(2)}</span>
+              <span className="text-4xl font-bold">
+                ${discountedPrice.toFixed(2)}
+              </span>
               {product.discountPercentage > 0 && (
                 <>
-                  <span className="text-xl text-muted-foreground line-through">${product.price.toFixed(2)}</span>
-                  <Badge variant="destructive">{product.discountPercentage.toFixed(0)}% OFF</Badge>
+                  <span className="text-xl text-muted-foreground line-through">
+                    ${product.price.toFixed(2)}
+                  </span>
+                  <Badge variant="destructive">
+                    {product.discountPercentage.toFixed(0)}% OFF
+                  </Badge>
                 </>
               )}
             </div>
@@ -113,7 +131,9 @@ export default async function ProductDetailPage({
           <div className="space-y-4">
             <div>
               <h2 className="font-semibold mb-2">Description</h2>
-              <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+              <p className="text-muted-foreground leading-relaxed">
+                {product.description}
+              </p>
             </div>
           </div>
 
@@ -128,5 +148,5 @@ export default async function ProductDetailPage({
         </div>
       </div>
     </div>
-  )
+  );
 }

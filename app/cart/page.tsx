@@ -1,16 +1,22 @@
-"use client"
+"use client";
 
-import { useCart } from "@/components/cart-provider"
-import { CartItemCard } from "@/components/cart-item-card"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShoppingBag, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { ArrowLeft, ShoppingBag } from "lucide-react";
+import Link from "next/link";
+import { CartItemCard } from "@/components/cart-item-card";
+import { useCart } from "@/components/cart-provider";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function CartPage() {
-  const { items, getTotalItems, getTotalPrice } = useCart()
-  const totalItems = getTotalItems()
-  const totalPrice = getTotalPrice()
+  const { items, getTotalItems, getTotalPrice } = useCart();
+  const totalItems = getTotalItems();
+  const totalPrice = getTotalPrice();
 
   if (items.length === 0) {
     return (
@@ -23,7 +29,9 @@ export default function CartPage() {
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-bold">Your cart is empty</h1>
-            <p className="text-muted-foreground">Add some products to get started</p>
+            <p className="text-muted-foreground">
+              Add some products to get started
+            </p>
           </div>
           <Link href="/">
             <Button size="lg">
@@ -33,7 +41,7 @@ export default function CartPage() {
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -62,7 +70,9 @@ export default function CartPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Items ({totalItems})</span>
+                <span className="text-muted-foreground">
+                  Items ({totalItems})
+                </span>
                 <span className="font-medium">${totalPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm">
@@ -72,7 +82,9 @@ export default function CartPage() {
               <div className="border-t pt-4">
                 <div className="flex justify-between">
                   <span className="font-semibold">Total</span>
-                  <span className="text-2xl font-bold">${totalPrice.toFixed(2)}</span>
+                  <span className="text-2xl font-bold">
+                    ${totalPrice.toFixed(2)}
+                  </span>
                 </div>
               </div>
             </CardContent>
@@ -85,5 +97,5 @@ export default function CartPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

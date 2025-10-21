@@ -1,25 +1,31 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { ShoppingCart, Store } from "lucide-react"
-import { useCart } from "./cart-provider"
-import { Button } from "./ui/button"
-import { Badge } from "./ui/badge"
+import { ShoppingCart, Store } from "lucide-react";
+import Link from "next/link";
+import { useCart } from "./cart-provider";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
 export function Header() {
-  const { getTotalItems } = useCart()
-  const totalItems = getTotalItems()
+  const { getTotalItems } = useCart();
+  const totalItems = getTotalItems();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-semibold text-lg"
+        >
           <Store className="h-6 w-6" />
           <span>ShopHub</span>
         </Link>
 
         <nav className="flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium transition-colors hover:text-accent">
+          <Link
+            href="/"
+            className="text-sm font-medium transition-colors hover:text-accent"
+          >
             Products
           </Link>
           <Link href="/cart">
@@ -33,11 +39,13 @@ export function Header() {
                   {totalItems}
                 </Badge>
               )}
-              <span className="sr-only">Shopping cart with {totalItems} items</span>
+              <span className="sr-only">
+                Shopping cart with {totalItems} items
+              </span>
             </Button>
           </Link>
         </nav>
       </div>
     </header>
-  )
+  );
 }

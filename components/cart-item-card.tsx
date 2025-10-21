@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Minus, Plus, Trash2 } from "lucide-react"
-import { Card, CardContent } from "./ui/card"
-import { Button } from "./ui/button"
-import { useCart, type CartItem } from "./cart-provider"
+import { Minus, Plus, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { type CartItem, useCart } from "./cart-provider";
+import { Button } from "./ui/button";
+import { Card, CardContent } from "./ui/card";
 
 interface CartItemCardProps {
-  item: CartItem
+  item: CartItem;
 }
 
 export function CartItemCard({ item }: CartItemCardProps) {
-  const { updateQuantity, removeFromCart } = useCart()
+  const { updateQuantity, removeFromCart } = useCart();
 
   return (
     <Card>
@@ -31,7 +31,9 @@ export function CartItemCard({ item }: CartItemCardProps) {
             <div className="flex justify-between">
               <div>
                 <h3 className="font-semibold line-clamp-2">{item.title}</h3>
-                <p className="text-lg font-bold mt-1">${item.price.toFixed(2)}</p>
+                <p className="text-lg font-bold mt-1">
+                  ${item.price.toFixed(2)}
+                </p>
               </div>
               <Button
                 variant="ghost"
@@ -54,7 +56,9 @@ export function CartItemCard({ item }: CartItemCardProps) {
                 <Minus className="h-3 w-3" />
                 <span className="sr-only">Decrease quantity</span>
               </Button>
-              <span className="w-12 text-center font-medium">{item.quantity}</span>
+              <span className="w-12 text-center font-medium">
+                {item.quantity}
+              </span>
               <Button
                 variant="outline"
                 size="icon"
@@ -64,11 +68,13 @@ export function CartItemCard({ item }: CartItemCardProps) {
                 <Plus className="h-3 w-3" />
                 <span className="sr-only">Increase quantity</span>
               </Button>
-              <span className="ml-auto font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
+              <span className="ml-auto font-semibold">
+                ${(item.price * item.quantity).toFixed(2)}
+              </span>
             </div>
           </div>
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
