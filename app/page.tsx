@@ -1,28 +1,26 @@
-import { ProductCard } from "@/components/product-card";
+import { Suspense } from "react";
+import { ProductList } from "@/components/product-list";
+import { ProductPagination } from "@/components/product-pagination";
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  thumbnail: string;
-  rating: number;
-}
-
-async function getProducts(): Promise<Product[]> {
-  const res = await fetch("https://dummyjson.com/products", {
+async function getTotalProducts(): Promise<number> {
+  const res = await fetch("https://dummyjson.com/products?limit=1", {
     cache: "no-store",
   });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
-  }
-
   const data = await res.json();
-  return data.products;
+  return data.total;
 }
 
-export default async function HomePage() {
-  const products = await getProducts();
+export default async function HomePage(props: {
+  searchParams?: Promise<{
+    query?: string;
+    page?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const page = Number(searchParams?.page) || 1;
+  const productsPerPage = 30;
+  const total = await getTotalProducts();
+  const totalPages = Math.ceil(total / productsPerPage);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -35,18 +33,11 @@ export default async function HomePage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            thumbnail={product.thumbnail}
-            rating={product.rating}
-          />
-        ))}
-      </div>
+      <Suspense key={page} fallback={<div>Loading...</div>}>
+        <ProductList page={page} productsPerPage={productsPerPage} />
+      </Suspense>
+
+      <ProductPagination totalPages={totalPages} />
     </div>
   );
 }
