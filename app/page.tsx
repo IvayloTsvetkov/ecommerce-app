@@ -23,8 +23,8 @@ export default async function HomePage(props: {
   const totalPages = Math.ceil(total / productsPerPage);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
+    <div className="container flex flex-col gap-8 mx-auto px-4 py-8">
+      <div>
         <h1 className="text-4xl font-bold mb-2 text-balance">
           Discover Amazing Products
         </h1>

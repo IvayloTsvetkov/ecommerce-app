@@ -1,9 +1,10 @@
 import { ProductCard } from "./product-card";
 
-interface Product {
+export interface Product {
   id: number;
   title: string;
   price: number;
+  discountPercentage: number;
   thumbnail: string;
   rating: number;
 }
@@ -43,14 +44,7 @@ export const ProductList = async ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          id={product.id}
-          title={product.title}
-          price={product.price}
-          thumbnail={product.thumbnail}
-          rating={product.rating}
-        />
+        <ProductCard key={product.id} {...product} />
       ))}
     </div>
   );

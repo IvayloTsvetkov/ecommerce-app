@@ -1,24 +1,21 @@
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { Product } from "./product-list";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter } from "./ui/card";
-
-interface ProductCardProps {
-  id: number;
-  title: string;
-  price: number;
-  thumbnail: string;
-  rating: number;
-}
 
 export function ProductCard({
   id,
   title,
   price,
+  discountPercentage,
   thumbnail,
   rating,
-}: ProductCardProps) {
+}: Product) {
+  const discountedPrice = price * (1 - discountPercentage / 100);
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <Link href={`/products/${id}`}>
@@ -42,7 +39,21 @@ export function ProductCard({
           <Star className="h-4 w-4 fill-accent text-accent" />
           <span className="text-sm font-medium">{rating.toFixed(1)}</span>
         </div>
-        <p className="text-2xl font-bold">${price.toFixed(2)}</p>
+        <div className="flex items-baseline gap-2">
+          <span className="text-2xl font-bold">
+            ${discountedPrice.toFixed(2)}
+          </span>
+          {discountPercentage > 0 && (
+            <>
+              <span className="text-base text-muted-foreground line-through">
+                ${price.toFixed(2)}
+              </span>
+              <Badge variant="destructive">
+                {discountPercentage.toFixed(0)}% OFF
+              </Badge>
+            </>
+          )}
+        </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Link href={`/products/${id}`} className="w-full">

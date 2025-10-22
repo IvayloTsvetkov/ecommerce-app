@@ -67,7 +67,7 @@ export default async function ProductDetailPage({
             <div className="grid grid-cols-4 gap-4">
               {product.images.slice(1, 5).map((image, index) => (
                 <div
-                  key={index}
+                  key={image}
                   className="relative aspect-square overflow-hidden rounded-md bg-muted"
                 >
                   <Image

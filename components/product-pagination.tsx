@@ -37,7 +37,12 @@ export const ProductPagination = ({ totalPages }: { totalPages: number }) => {
         {Array.from({ length: totalPages }, (_, index) => index + 1).map(
           (page) => (
             <PaginationItem key={page}>
-              <PaginationLink href={createPageURL(page)}>{page}</PaginationLink>
+              <PaginationLink
+                href={createPageURL(page)}
+                isActive={currentPage === page}
+              >
+                {page}
+              </PaginationLink>
             </PaginationItem>
           ),
         )}
