@@ -141,7 +141,7 @@ export default async function ProductDetailPage({
             product={{
               id: product.id,
               title: product.title,
-              price: discountedPrice,
+              price: Number(discountedPrice.toFixed(2)),
               thumbnail: product.thumbnail,
             }}
           />
