@@ -26,3 +26,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Limitations
 1. The data is retrived on the server side which can cause more load on the server. An alternative approach would be to fetch the data on the client-side.
 2. Currently there's no caching in place. If you navigate between the same two pages, you'll see the fallback loader each time. This can be resolved with a bit of extra logic.
+3. In case of a larger product catalog or the option to displaying fewer items per page, it might be a good idea to limit the amount of pages shown to the user by utilizing the <PaginationEllipsis /> component.
+4. The UI and UX can be improved by replacing the Loading text with a skeleton. If done correctly, it can prevent a layout shift.
